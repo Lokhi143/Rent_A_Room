@@ -26,4 +26,6 @@ private
    self.role_id = role.id
    self.save
  end
+
+ 
 end

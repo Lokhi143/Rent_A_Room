@@ -52,6 +52,12 @@
   <%= f.label :cities %><br>
   <%= f.collection_select :city_id, City.all, :id, :name, prompt: "select city" %>
   </div>
+  <% if can? :update, @room %>
+  <div class="field">
+    <%= f.label :is_authorized %>
+    <%= f.check_box :is_authorized %> 
+  </div>
+  <% end %>
 
   <div class="field">
     <%#= f.hidden_field :city_id %>
@@ -62,4 +68,10 @@
   <div class="actions">
     <%= f.submit %>
   </div>
+
+  <% if can? :update, @room %>
+  <div class="actions">
+    <%= f.submit "Update", rooms_path %>
+  </div>
+  <% end %>
 <% end %>
