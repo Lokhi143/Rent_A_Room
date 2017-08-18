@@ -8,11 +8,12 @@ class Room < ActiveRecord::Base
 	after_update :room_authorization_confirmation
 
 
-	def guest_to_host
-		role = self.user.role.name
-		new_role = Role.second
-		if(role == "guest")
-			self.user.role_id = new_role.id
+	def guest_to_host 
+		# use find_by bcz what if our first user is guest we dont knw the id
+		role = Role.find_by_name("guest")
+		host = Role.find_by_name("host")
+		if (self.user.role_id == role.id)
+			self.user.role_id = host.id
 			self.user.save
 		end
  	end
