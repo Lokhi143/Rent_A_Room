@@ -19,11 +19,11 @@ class Room < ActiveRecord::Base
  	end
 
 	def send_email
-		Notification.isauthorized_confirmation.deliver!
+		Notification.isauthorized_confirmation(self).deliver!
 	end
 
 	def room_authorization_confirmation
-		NotificationHost.authorized_confirmation.deliver!
+		NotificationHost.authorized_confirmation(self).deliver!
 	end
 	
 end

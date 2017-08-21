@@ -5,7 +5,10 @@ class Notification < ApplicationMailer
   #
   #   en.notification.isauthorized_confirmation.subject
   #
-  def isauthorized_confirmation
-      mail to: "lakshmisravani597@gmail.com", subject: "Room is added(authorize it)"
+  def isauthorized_confirmation(room)
+  	@room = room
+  	role = Role.find_by(name: "admin")
+  	@user = User.find_by(role_id: role).email
+      mail to: "#{@user}", subject: "Room is added, authorize room = #{room.id}" 
   end
 end

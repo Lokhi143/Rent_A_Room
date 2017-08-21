@@ -5,8 +5,9 @@ class NotificationHost < ApplicationMailer
   #
   #   en.notification_host.authorized_confirmation.subject
   #
-  def authorized_confirmation
+  def authorized_confirmation(room)
 
-    mail to: "gudluck0722@gmail.com", subject: "Successfully room added"
+  	@room = room
+    mail to: "#{room.user.email}", subject: "Successfully room added"
   end
 end
