@@ -29,7 +29,12 @@
         <td><%= room.address %></td>
         <td><%= room.latitude %></td>
         <td><%= room.longitude %></td>
-        <td><%= room.is_authorized %></td>
+        <td>
+        <%= form_for(room) do |f| %>
+         <%= f.check_box :is_authorized %>
+         <%= f.submit "authorize room" %>
+        <% end %>
+        </td>
         <td><%= link_to 'Show', room %></td>
         <% if can? :update, room %>
         <td><%= link_to 'Edit', edit_room_path(room) %></td>
@@ -37,12 +42,6 @@
         <% if can? :destroy, room %>
         <td><%= link_to 'Destroy', room, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <% end %>
-        <td>
-        <%= form_for(room) do |f| %>
-         <%= f.check_box :is_authorized %>
-         <%= f.submit "authorize room" %>
-        <% end %>
-        </td>
         
       </tr>
       <% end %>
