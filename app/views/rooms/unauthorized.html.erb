@@ -1,10 +1,6 @@
-<p id="notice"><%= notice %></p>
+<h4>Unauthorized Rooms : <%= @rooms.length %></h4>
 
-<h1>Authorized Rooms</h1>
-<h4><%= link_to 'Unauthorized Rooms', rooms_unauthorized_path %></h4>
-<h4><%= link_to 'My Room', rooms_myrooms_path %></h4>
-
-
+	
 <table>
   <thead>
     <tr>
@@ -23,7 +19,7 @@
 
   <tbody>
     <% @rooms.each do |room| %>
-      <% if room.is_authorized == true %>
+      <% if room.is_authorized == false %>
       <tr>
         <td><%= room.name %></td>
         <td><%= room.description %></td>
@@ -41,15 +37,15 @@
         <% if can? :destroy, room %>
         <td><%= link_to 'Destroy', room, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <% end %>
+        <td>
+        <%= form_for(room) do |f| %>
+         <%= f.check_box :is_authorized %>
+         <%= f.submit "authorize room" %>
+        <% end %>
+        </td>
+        
       </tr>
-    <% end %>
+      <% end %>
     <% end %>
   </tbody>
-
 </table>
-
-<br>
-<% if can? :create, Room.new %>
-<%= link_to 'New Room', new_room_path %>
-<% end %>
-

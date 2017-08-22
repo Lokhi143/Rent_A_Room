@@ -5,7 +5,7 @@ class Room < ActiveRecord::Base
 
 	after_create :send_email
 	after_create :guest_to_host
-	after_update :room_authorization_confirmation
+	#after_update :room_authorization_confirmation
 
 
 	def guest_to_host 
@@ -22,8 +22,8 @@ class Room < ActiveRecord::Base
 		Notification.isauthorized_confirmation(self).deliver!
 	end
 
-	def room_authorization_confirmation
-		NotificationHost.authorized_confirmation(self).deliver!
-	end
+	#def room_authorization_confirmation
+		#NotificationHost.authorized_confirmation(self).deliver!
+	#end
 	
 end

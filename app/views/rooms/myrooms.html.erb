@@ -1,0 +1,43 @@
+<h2>My Rooms <%#= @rooms.length %></h2>
+
+<table>
+ <thead>
+   <tr>
+     <th>Name</th>
+     <th>Description</th>
+     <th>Price</th>
+     <th>Rules</th>
+     <th>Minimum days</th>
+     <th>Address</th>
+     <th>Lat</th>
+     <th>Lng</th>
+     <th>Is authorized</th>
+     <th colspan="3"></th>
+   </tr>
+ </thead>
+
+ <tbody>
+   <% @rooms.each do |room| %>
+   <% if room.user_id == current_user.id %>
+     <tr>
+       <td><%= room.name %></td>
+       <td><%= room.description %></td>
+       <td><%= room.price %></td>
+       <td><%= room.rules %></td>
+       <td><%= room.minimum_days %></td>
+       <td><%= room.address %></td>
+       <td><%= room.lat %></td>
+       <td><%= room.lng %></td>
+       <td><%= room.is_authorized %></td>
+       <td><%= link_to 'Show', room %></td>
+       <% if can? :update, room %>
+       <td><%= link_to 'Edit', edit_room_path(room) %></td> 
+       <% end %>
+       <% if can? :destroy, room %>
+       <td><%= link_to 'Destroy', room, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+       <% end %>
+       <% end %>
+     </tr>
+   <% end %>
+ </tbody>
+</table>

@@ -61,6 +61,12 @@ class RoomsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  def myrooms
+    @rooms = Room.all
+  end
+  def unauthorized
+    @rooms = Room.all
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
