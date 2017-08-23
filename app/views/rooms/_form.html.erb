@@ -51,7 +51,8 @@
   <%= f.label :amenities %><br>
   <%= f.collection_check_boxes :amenity_ids, Amenity.all, :id, :name %>
   </div>
-  <div class="field">
+
+   <div class="field">
   <%= f.label :cities %><br>
   <%= f.collection_select :city_id, City.all, :id, :name, prompt: "select city" %>
   </div>
@@ -68,15 +69,16 @@
   <div class="field">
     <%= f.hidden_field :user_id %>
   </div>
+
+  <div class="field">
+    <%= f.fields_for :images,@image do |ff| %>
+    <%= ff.file_field :image %><br>
+    <% end %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>
 
-  <% if can? :update, @room %>
-  <div class="actions">
-    <%= f.submit rooms_path %>
-  </div>
-  <% end %>
 <% end %>
 
 <script>

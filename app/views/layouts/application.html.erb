@@ -16,8 +16,8 @@ Welcome <%= current_user.first_name %>
 <%= link_to "sign out", destroy_user_session_path, method: :delete %>
 <% else %>
 <%= link_to "sign in", new_user_session_path %> | <%= link_to "sign
-up", new_user_registration_path %>
-<% end %>
+up", new_user_registration_path %> <% end %> | <%= link_to "Room", rooms_path %> | <%= link_to "Amenities", amenities_path %> | <%= link_to "Cities", cities_path %> | <%= link_to "Images", images_path %>
+
 <%= yield %>
 
 </body>

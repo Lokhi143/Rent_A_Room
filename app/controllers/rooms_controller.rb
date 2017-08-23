@@ -5,6 +5,7 @@ class RoomsController < ApplicationController
   # GET /rooms.json
   def index
     @rooms = Room.all
+    @images = Image.all
   end
 
   # GET /rooms/1
@@ -15,6 +16,7 @@ class RoomsController < ApplicationController
   # GET /rooms/new
   def new
     @room = Room.new
+    @image = Image.new
   end
 
   # GET /rooms/1/edit
@@ -76,6 +78,6 @@ class RoomsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def room_params
-      params.require(:room).permit(:name, :description, :price, :rules, :minimum_days, :address, :latitude, :longitude, :is_authorized, :city_id, :user_id)
+      params.require(:room).permit(:name, :description, :price, :rules, :minimum_days, :address, :latitude, :longitude, :is_authorized, :city_id, :user_id, images_attributes:[:id, :image, :room_id])
     end
 end

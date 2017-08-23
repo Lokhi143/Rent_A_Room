@@ -1,11 +1,18 @@
 class Room < ActiveRecord::Base
+	#mount_uploader :image, ImageUploader
+
+
+
 	belongs_to :city
 	belongs_to :user
 	has_many :amenities
+	has_many :images
+
+	accepts_nested_attributes_for :images
 
 	after_create :send_email
 	after_create :guest_to_host
-	#after_update :room_authorization_confirmation
+	after_update :room_authorization_confirmation
 
 
 	def guest_to_host 
@@ -22,8 +29,8 @@ class Room < ActiveRecord::Base
 		Notification.isauthorized_confirmation(self).deliver!
 	end
 
-	#def room_authorization_confirmation
-		#NotificationHost.authorized_confirmation(self).deliver!
-	#end
+	def room_authorization_confirmation
+		NotificationHost.authorized_confirmation(self).deliver!
+	end
 	
 end

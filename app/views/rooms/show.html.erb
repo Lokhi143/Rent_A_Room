@@ -44,6 +44,12 @@
   <strong>Is authorized:</strong>
   <%= @room.is_authorized %>
 </p>
+<p>
+<strong>Image:</strong>
+<% @room.images.each do |img| %>
+  <%= image_tag img.image %>
+<% end %>
+</p>
 
 <iframe
   width="1250"
