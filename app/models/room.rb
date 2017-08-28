@@ -7,6 +7,8 @@ class Room < ActiveRecord::Base
 	belongs_to :user
 	has_many :amenities
 	has_many :images
+	has_many :amenity_rooms
+	has_many :amenities, through: :amenity_rooms
 
 	accepts_nested_attributes_for :images
 

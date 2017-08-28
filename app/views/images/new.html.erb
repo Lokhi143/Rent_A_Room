@@ -1,5 +1,7 @@
-<h1>New Image</h1>
+<h2>Add Image</h2>
 
-<%= render 'form' %>
-
-<%= link_to 'Back', images_path %>
+<%= form_for @image do |f| %>
+<%= f.label :image %>
+<%= f.file_field :image %>
+<%= f.submit "submit" %>
+<% end %>

@@ -58,6 +58,10 @@
   src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCmI289vCsUvj4__rkKvjfdclWMrtl_PN0
     &q=<%= @room.latitude%>,<%= @room.longitude %>" allowfullscreen>
 </iframe>
+<% if user_signed_in? %>
+<h3>Booking</h3>
+<%= render '/bookings/form' %>
+<% end %>
 
 
 
