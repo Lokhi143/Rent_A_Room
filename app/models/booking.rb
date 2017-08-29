@@ -2,6 +2,7 @@ class Booking < ActiveRecord::Base
 	belongs_to :user
 	belongs_to :room
 	validate :booking_room
+	after_create :inform_host
 
 
 	def booking_room
@@ -17,15 +18,16 @@ class Booking < ActiveRecord::Base
 			old_end_date = booking.end_date.to_datetime
 			past_dates = (old_start_date..old_end_date).to_a
 			
-			if (self.end_date < Date.today) || (past_dates - future_dates).length != past_dates.length
+			if (self.end_date <= Date.today) || (past_dates - future_dates).length != past_dates.length
 			
 				self.errors.add(:room_id, "Not available")
 				#binding.pry
 			end 
 		end
+	end	
 
-
-
+	def inform_host
+		NotificationForBooking.is_confirmed(self).deliver!
 	end	
 
 
