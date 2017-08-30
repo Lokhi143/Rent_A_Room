@@ -1,7 +1,7 @@
 class Booking < ActiveRecord::Base
 	belongs_to :user
 	belongs_to :room
-	validate :booking_room
+	validate :booking_room, on: :create
 	after_create :inform_host
 
 

@@ -1,11 +1,12 @@
 class BookingsController < ApplicationController
-  before_action :authenticate_user! 
-  #load_and_authorize_resource
+  before_action :authenticate_user!, except: [:index,:show] 
+  load_and_authorize_resource
   before_action :set_booking, only: [:show, :edit, :update, :destroy]
 
   # GET /bookings
   # GET /bookings.json
   def index
+    @user = current_user
     @bookings = Booking.all
   end
 
@@ -63,6 +64,10 @@ class BookingsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  def invalidate
+    authorize! :invalidate, Booking.new
+    @bookings = Booking.all
+  end 
 
   private
     # Use callbacks to share common setup or constraints between actions.

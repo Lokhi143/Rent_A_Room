@@ -1,11 +1,4 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Validate Bookings</h1>
-<% if @user.present? %>
-  <% if @user.role_id == Role.find_by_name("host").id %>
-    <h4><%= link_to 'Invalidate Room', bookings_invalidate_path %></h4>
-  <% end %>
-<% end %>
+<h2>Invalidate Bookings</h2>
 
 <table>
   <thead>
@@ -21,13 +14,17 @@
 
   <tbody>
     <% @bookings.each do |booking| %>
-    <% if booking.is_confirmed == true %>
+      <% if booking.is_confirmed == false %>
       <tr>
         <td><%= booking.start_date %></td>
         <td><%= booking.end_date %></td>
         <td><%= booking.user_id %></td>
         <td><%= booking.room_id %></td>
-        <td><%= booking.is_confirmed %></td>
+        <td><%= form_for(booking) do |f| %>
+         <%= f.check_box :is_confirmed %>
+         <%= f.submit "validate room" %>
+        <% end %>
+        </td>
         <td><%= link_to 'Show', booking %></td>
         <% if can? :update, booking %>
         <td><%= link_to 'Edit', edit_booking_path(booking) %></td>
@@ -41,7 +38,5 @@
   </tbody>
 </table>
 
-<br>
-<% if can? :create, Booking.new %>
-<%= link_to 'New Booking', new_booking_path %>
-<% end %>
+
+

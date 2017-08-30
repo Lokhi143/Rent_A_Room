@@ -27,10 +27,12 @@
     <%#= f.label :room_id %>
     <%= f.hidden_field :room_id, value: @room_id %>
   </div>
+<% if can? :update, @room %>
  <div class="field">
     <%= f.label :is_confirmed %>
     <%= f.check_box :is_confirmed %> 
   </div>
+<% end %> 
   <div class="actions">
     <%= f.submit %>
   </div>
