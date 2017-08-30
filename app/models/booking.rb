@@ -4,6 +4,19 @@ class Booking < ActiveRecord::Base
 	validate :booking_room, on: :create
 	after_create :inform_host
 	after_update :inform_user
+	after_create :amount_calculation
+
+
+	def amount_calculation
+		bookings = Booking.where('room_id = ?', self.room_id)
+		bookings.each do |booking|
+			number_of_days = (booking.start_date.to_datetime..booking.end_date.to_datetime).to_a.length
+			room_price = booking.room.price
+			amount = number_of_days * room_price
+			self.amount = amount
+			self.save
+		end
+	end	
 
 
 	def booking_room
