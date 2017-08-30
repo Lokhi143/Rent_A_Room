@@ -3,6 +3,7 @@ class Booking < ActiveRecord::Base
 	belongs_to :room
 	validate :booking_room, on: :create
 	after_create :inform_host
+	after_update :inform_user
 
 
 	def booking_room
@@ -28,6 +29,10 @@ class Booking < ActiveRecord::Base
 
 	def inform_host
 		NotificationForBooking.is_confirmed(self).deliver!
+	end	
+
+	def inform_user
+		NotificationForUser.user_confirmation(self).deliver!
 	end	
 
 

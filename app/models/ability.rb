@@ -12,15 +12,13 @@ class Ability
     elsif user.role? "host"
       can :invalidate, Booking  
       can [:read,:create],[City,Amenity,Room, Booking]
-      can [:update,:destroy],Room do |room|
+      can [:read,:update,:destroy],Room do |room|
         room.user == user
         end
       can [:myrooms, :unauthorized], Room  
-      can [:update, :destroy], Booking do |booking|
-        booking.user == user 
-        end
+      can [:update, :destroy], Booking
     elsif user.role? "guest"
-        can :read, [City, Amenity]
+        can :read, [City, Amenity, Room, Booking]
         can :create, Room
         can :create, Booking
     end
